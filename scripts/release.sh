@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 SKILL_DIR="$ROOT/skills/great-ming"
-ARTIFACT="$ROOT/dist/great-ming.skill"
+ARTIFACT_ZIP="$ROOT/dist/great-ming.zip"
 
 die() {
   echo "Error: $*" >&2
@@ -25,13 +25,13 @@ Usage:
 
 Commands:
   build
-    Build dist/great-ming.skill from skills/great-ming/ (default).
+    Build dist/great-ming.zip from skills/great-ming/ (default).
 
   bump <version>
     Replace version strings in README.md, README-en.md, LICENSE, then build.
 
   publish <version> [--yes]
-    bump + build + git commit/tag/push + gh release create (uploads dist/great-ming.skill).
+    bump + build + git commit/tag/push + gh release create (uploads dist/great-ming.zip).
 
 Examples:
   ./scripts/release.sh build
@@ -113,9 +113,9 @@ build_skill() {
   [[ -f "$SKILL_DIR/SKILL.md" ]] || die "Missing SKILL.md: $SKILL_DIR/SKILL.md"
 
   mkdir -p "$ROOT/dist"
-  rm -f "$ARTIFACT"
+  rm -f "$ARTIFACT_ZIP"
 
-  (cd "$ROOT/skills" && zip -r "$ARTIFACT" "great-ming" \
+  (cd "$ROOT/skills" && zip -r "$ARTIFACT_ZIP" "great-ming" \
     -x '*/.DS_Store' \
     -x '*/__pycache__/*' \
     -x '*/.pytest_cache/*' \
@@ -123,13 +123,13 @@ build_skill() {
     -x '*.pyo' \
     >/dev/null)
 
-  unzip -l "$ARTIFACT" | grep -qE 'great-ming/SKILL\.md$' || die "Built archive is missing great-ming/SKILL.md"
+  unzip -l "$ARTIFACT_ZIP" | grep -qE 'great-ming/SKILL\.md$' || die "Built archive is missing great-ming/SKILL.md"
 
-  echo "Built: $ARTIFACT"
+  echo "Built: $ARTIFACT_ZIP"
   if have shasum; then
-    echo "SHA256: $(shasum -a 256 "$ARTIFACT" | awk '{print $1}')"
+    echo "SHA256: $(shasum -a 256 "$ARTIFACT_ZIP" | awk '{print $1}')"
   elif have sha256sum; then
-    echo "SHA256: $(sha256sum "$ARTIFACT" | awk '{print $1}')"
+    echo "SHA256: $(sha256sum "$ARTIFACT_ZIP" | awk '{print $1}')"
   fi
 }
 
@@ -169,7 +169,7 @@ publish_release() {
   fi
   git -C "$ROOT" remote get-url origin >/dev/null 2>&1 || die "Missing git remote: origin"
 
-  git -C "$ROOT" add README.md README-en.md LICENSE dist/great-ming.skill
+  git -C "$ROOT" add README.md README-en.md LICENSE dist/great-ming.zip
   git -C "$ROOT" commit -m "chore(release): $tag"
   git -C "$ROOT" tag -a "$tag" -m "$tag"
 
@@ -180,7 +180,7 @@ publish_release() {
 
   git -C "$ROOT" push origin HEAD
   git -C "$ROOT" push origin "$tag"
-  gh release create "$tag" "$ARTIFACT" --title "$tag" --generate-notes
+  gh release create "$tag" "$ARTIFACT_ZIP" --title "$tag" --generate-notes
 }
 
 main() {

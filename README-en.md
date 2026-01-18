@@ -12,21 +12,20 @@ This repo also ships `mingctl`, a small Python script that creates a project-loc
 
 - Codex Skill: `skills/great-ming/` (trigger phrases: Great Ming/大明/朱批/题本/票拟…)
 - Script: `skills/great-ming/scripts/mingctl.py` (install into a target repo’s `.great-ming/`)
-- Packaged artifact: `dist/great-ming.skill` (zip-format `.skill`)
+- Packaged artifact: `dist/great-ming.zip` (zip archive)
 - Design article (journal-style): `docs/principles-and-historical-mapping.zh-CN.md`
 
 ## Install
 
 ### Option 1: Let the Agent Install (Easiest)
 
-Simply tell your Agent in a conversation:
+One-line prompt (recommended; the agent will read the “Install” section in this README and follow it exactly):
 
 ```
-Please install this Skill for me:
-https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.skill
+Please read this repo’s `README-en.md` “Install” section and install `dist/great-ming.zip` by following the commands exactly (download → unzip → verify). Do not change paths/steps.
 ```
 
-The Agent will automatically download and install it to the appropriate skills directory (`~/.codex/skills/` or `~/.claude/skills/`), then restart to load it.
+After that, restart Codex / Claude Code (or start a new conversation) to load the skill.
 
 ### Option 2: Manual Installation (Local Development)
 
@@ -38,8 +37,9 @@ Copy/symlink the folder into your Codex skills directory:
 
 Or use the packaged file:
 
-- `curl -L -o /tmp/great-ming.skill https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.skill`
-- `unzip /tmp/great-ming.skill -d ~/.codex/skills`
+- `curl -L -o /tmp/great-ming.zip https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.zip`
+- `rm -rf ~/.codex/skills/great-ming && mkdir -p ~/.codex/skills && unzip -o /tmp/great-ming.zip -d ~/.codex/skills`
+- `test -f ~/.codex/skills/great-ming/SKILL.md`
 
 Restart Codex to pick up the new skill.
 
@@ -51,14 +51,15 @@ Copy/symlink the folder into your Claude Code skills directory:
 
 Or use the packaged file:
 
-- `curl -L -o /tmp/great-ming.skill https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.skill`
-- `unzip /tmp/great-ming.skill -d ~/.claude/skills`
+- `curl -L -o /tmp/great-ming.zip https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.zip`
+- `rm -rf ~/.claude/skills/great-ming && mkdir -p ~/.claude/skills && unzip -o /tmp/great-ming.zip -d ~/.claude/skills`
+- `test -f ~/.claude/skills/great-ming/SKILL.md`
 
 Restart Claude Code (or start a new conversation) to load the skill.
 
-## Packaging (Build `dist/great-ming.skill`)
+## Packaging (Build `dist/great-ming.zip`)
 
-A `.skill` file is just a zip archive. It should contain a top-level `great-ming/` folder (i.e. `great-ming/SKILL.md` exists inside the archive).
+The `.zip` is just a zip archive. It should contain a top-level `great-ming/` folder (i.e. `great-ming/SKILL.md` exists inside the archive).
 
 One-command build:
 
@@ -71,12 +72,12 @@ One-command build:
 From the repo root:
 
 - `mkdir -p dist`
-- `rm -f dist/great-ming.skill`
-- `mkdir -p dist && (cd skills && zip -r ../dist/great-ming.skill great-ming -x '**/.DS_Store' -x '**/__pycache__/*')`
+- `rm -f dist/great-ming.zip`
+- `mkdir -p dist && (cd skills && zip -r ../dist/great-ming.zip great-ming -x '**/.DS_Store' -x '**/__pycache__/*')`
 
 (Optional) verify:
 
-- `unzip -l dist/great-ming.skill | head`
+- `unzip -l dist/great-ming.zip | head`
 
 ## Use (in a Project)
 

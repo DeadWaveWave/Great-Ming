@@ -21,21 +21,20 @@ AI 会自动根据当前环境选择可用的工具，无需手动切换。
 - Skill 主文件：`skills/great-ming/SKILL.md`（触发词：Great Ming/大明/朱批/题本/票拟…；兼容 Codex & Claude Code）
 - 参考文档：`skills/great-ming/references/*.md`（路由、模板、六部映射等）
 - 司礼监脚本：`skills/great-ming/scripts/mingctl.py`（安装到目标项目的 `.great-ming/`）
-- 打包产物：`dist/great-ming.skill`（zip 格式的 `.skill`）
+- 打包产物：`dist/great-ming.zip`（zip 格式）
 - 原理与历史对应（期刊式文章）：`docs/principles-and-historical-mapping.zh-CN.md`
 
 ## 安装
 
 ### 方式一：请 Agent 代为安装（最便捷）
 
-直接在对话中对 Agent 说：
+一句话指令（推荐复制给 Agent；它会先看本 README 的“安装”章节，再严格照做）：
 
 ```
-帮我安装这个 Skill：
-https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.skill
+请阅读本仓库 `README.md` 的“安装”章节，并按其中命令安装 `dist/great-ming.zip`（下载→解压→校验），不要自行改步骤或路径。
 ```
 
-Agent 会自动下载并安装到对应的 skills 目录（`~/.codex/skills/` 或 `~/.claude/skills/`），然后重启即可。
+安装完成后重启 Codex / Claude Code（或新开会话）以加载新 Skill。
 
 ### 方式二：手动安装（本地开发）
 
@@ -47,8 +46,9 @@ Agent 会自动下载并安装到对应的 skills 目录（`~/.codex/skills/` �
 
 或使用打包文件：
 
-- `curl -L -o /tmp/great-ming.skill https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.skill`
-- `unzip /tmp/great-ming.skill -d ~/.codex/skills`
+- `curl -L -o /tmp/great-ming.zip https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.zip`
+- `rm -rf ~/.codex/skills/great-ming && mkdir -p ~/.codex/skills && unzip -o /tmp/great-ming.zip -d ~/.codex/skills`
+- `test -f ~/.codex/skills/great-ming/SKILL.md`
 
 重启 Codex 以加载新 Skill。
 
@@ -60,14 +60,15 @@ Agent 会自动下载并安装到对应的 skills 目录（`~/.codex/skills/` �
 
 或使用打包文件：
 
-- `curl -L -o /tmp/great-ming.skill https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.skill`
-- `unzip /tmp/great-ming.skill -d ~/.claude/skills`
+- `curl -L -o /tmp/great-ming.zip https://raw.githubusercontent.com/DeadWaveWave/Great-Ming/main/dist/great-ming.zip`
+- `rm -rf ~/.claude/skills/great-ming && mkdir -p ~/.claude/skills && unzip -o /tmp/great-ming.zip -d ~/.claude/skills`
+- `test -f ~/.claude/skills/great-ming/SKILL.md`
 
 重启 Claude Code（或新建对话）以加载新 Skill。
 
-## 打包（生成 `dist/great-ming.skill`）
+## 打包（生成 `dist/great-ming.zip`）
 
-`.skill` 本质是 zip 包，内部应包含顶层目录 `great-ming/`（即存在 `great-ming/SKILL.md`）。
+`.zip` 本质是 zip 包，内部应包含顶层目录 `great-ming/`（即存在 `great-ming/SKILL.md`）。
 
 一键打包：
 
@@ -80,12 +81,12 @@ Agent 会自动下载并安装到对应的 skills 目录（`~/.codex/skills/` �
 在仓库根目录执行：
 
 - `mkdir -p dist`
-- `rm -f dist/great-ming.skill`
-- `mkdir -p dist && (cd skills && zip -r ../dist/great-ming.skill great-ming -x '**/.DS_Store' -x '**/__pycache__/*')`
+- `rm -f dist/great-ming.zip`
+- `mkdir -p dist && (cd skills && zip -r ../dist/great-ming.zip great-ming -x '**/.DS_Store' -x '**/__pycache__/*')`
 
 校验（可选）：
 
-- `unzip -l dist/great-ming.skill | head`
+- `unzip -l dist/great-ming.zip | head`
 
 ## 使用（在项目中）
 
