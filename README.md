@@ -1,5 +1,7 @@
 # Great Ming：登基加冕，成为AI的皇帝
 
+一句“登基”，把写代码变成大明早朝：题本起草、朱批授权、六部办差。
+
 ![诏书](https://img.shields.io/badge/诏书-天子诰命-blue)
 ![朝臣](https://img.shields.io/github/stars/DeadWaveWave/Great-Ming?style=social&label=朝臣)
 ![版本](https://img.shields.io/badge/版本-永乐_3.1.4-green)

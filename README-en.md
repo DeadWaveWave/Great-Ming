@@ -1,5 +1,7 @@
 # Great Ming：登基加冕，成为AI的皇帝
 
+Say “登基” to turn coding into a Ming-dynasty morning audience: memorials, vermilion rescripts, and six‑ministry execution.
+
 ![Imperial Edict](https://img.shields.io/badge/Imperial_Edict-天子诰命-blue)
 ![Court Officials](https://img.shields.io/github/stars/DeadWaveWave/Great-Ming?style=social&label=Court%20Officials)
 ![Version](https://img.shields.io/badge/Version-Yongle_3.1.4-green)
