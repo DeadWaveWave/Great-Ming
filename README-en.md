@@ -56,6 +56,28 @@ Or use the packaged file:
 
 Restart Claude Code (or start a new conversation) to load the skill.
 
+## Packaging (Build `dist/great-ming.skill`)
+
+A `.skill` file is just a zip archive. It should contain a top-level `great-ming/` folder (i.e. `great-ming/SKILL.md` exists inside the archive).
+
+One-command build:
+
+- `./scripts/release.sh build`
+
+(Optional) one-command publish (requires `gh` auth):
+
+- `./scripts/release.sh publish 3.1.5`
+
+From the repo root:
+
+- `mkdir -p dist`
+- `rm -f dist/great-ming.skill`
+- `mkdir -p dist && (cd skills && zip -r ../dist/great-ming.skill great-ming -x '**/.DS_Store' -x '**/__pycache__/*')`
+
+(Optional) verify:
+
+- `unzip -l dist/great-ming.skill | head`
+
 ## Use (in a Project)
 
 ### “New Emperor” Onboarding (60 seconds)

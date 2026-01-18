@@ -65,6 +65,28 @@ Agent 会自动下载并安装到对应的 skills 目录（`~/.codex/skills/` �
 
 重启 Claude Code（或新建对话）以加载新 Skill。
 
+## 打包（生成 `dist/great-ming.skill`）
+
+`.skill` 本质是 zip 包，内部应包含顶层目录 `great-ming/`（即存在 `great-ming/SKILL.md`）。
+
+一键打包：
+
+- `./scripts/release.sh build`
+
+（可选）一键发版（需要已安装并登录 `gh`）：
+
+- `./scripts/release.sh publish 3.1.5`
+
+在仓库根目录执行：
+
+- `mkdir -p dist`
+- `rm -f dist/great-ming.skill`
+- `mkdir -p dist && (cd skills && zip -r ../dist/great-ming.skill great-ming -x '**/.DS_Store' -x '**/__pycache__/*')`
+
+校验（可选）：
+
+- `unzip -l dist/great-ming.skill | head`
+
 ## 使用（在项目中）
 
 ### 新帝登基（首次上手 60 秒）

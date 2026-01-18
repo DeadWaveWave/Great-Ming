@@ -1,6 +1,6 @@
 ---
 name: great-ming
-description: "Opt-in Ming-dynasty "imperial court" vibe-coding protocol for Codex & Claude Code. Use ONLY when the user explicitly says "Great Ming" or "登基" (first-time onboarding), or when the repo's AGENTS.md explicitly requests this style."
+description: "Opt-in Ming-dynasty \"imperial court\" vibe-coding protocol for Codex & Claude Code. Use ONLY when the user explicitly says \"Great Ming\" or \"登基\" (first-time onboarding), or when the repo's AGENTS.md explicitly requests this style."
 ---
 
 # Great Ming
